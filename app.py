@@ -10,18 +10,26 @@ points_data = {
         {
             "type": "Feature",
             "properties": {
-                "name": "Monumen Nasional (Monas)",
-                "description": "Ikon Kota Jakarta"
+                "name": "Pantai Losari",
+                "description": "Ikon Kota Makassar yang terkenal dengan kulinernya."
             },
-            "geometry": {"type": "Point", "coordinates": [106.827153, -6.175400]}
+            "geometry": {"type": "Point", "coordinates": [119.4082, -5.1441]}
         },
         {
             "type": "Feature",
             "properties": {
-                "name": "Kota Tua Jakarta",
-                "description": "Kawasan Bersejarah di Jakarta"
+                "name": "Benteng Rotterdam",
+                "description": "Benteng peninggalan Kerajaan Gowa-Tallo."
             },
-            "geometry": {"type": "Point", "coordinates": [106.812395, -6.134375]}
+            "geometry": {"type": "Point", "coordinates": [119.4052, -5.1334]}
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pelabuhan Paotere",
+                "description": "Pelabuhan perahu tradisional Pinisi."
+            },
+            "geometry": {"type": "Point", "coordinates": [119.4144, -5.1166]}
         }
     ]
 }
