@@ -1,4 +1,10 @@
 flask
 flask-sqlalchemy
+geopandas
+pyogrio
+shapely
+fiona
+python-dotenv
+sqlalchemy-utils
+mapbox-vector-tile
 gunicorn
-# Diperlukan untuk deployment di platform cloud gratis seperti Render atau Railway.
