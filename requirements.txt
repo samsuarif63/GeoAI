@@ -1,3 +1,4 @@
 flask
+flask-sqlalchemy
 gunicorn
 # Diperlukan untuk deployment di platform cloud gratis seperti Render atau Railway.
