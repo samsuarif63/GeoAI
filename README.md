@@ -1,23 +1,26 @@
-# 🌏 My Free WebGIS - Jakarta Landmark
+# 🌏 My Free WebGIS - Makassar Landmark
 
-Proyek WebGIS sederhana yang dibangun menggunakan **Flask (Python)** dan **Leaflet.js**. Dirancang khusus untuk dapat berjalan di lingkungan hosting gratis dengan performa tinggi.
+Proyek WebGIS sederhana yang dibangun menggunakan **Flask (Python)** dan **Leaflet.js**. Dirancang khusus untuk menampilkan lokasi bersejarah di Kota Makassar dan dapat berjalan di lingkungan hosting gratis dengan performa tinggi.
+
+👉 **Live Demo**: [samsu.pythonanywhere.com](http://samsu.pythonanywhere.com)
 
 ## 🚀 Fitur Utama
 - **Backend Flask**: API dinamis untuk melayani data geospasial (GeoJSON).
-- **Leaflet.js Frontend**: Peta interaktif yang ringan dan responsif.
-- **Isolasi Project**: Menggunakan Python Virtual Environment (`venv`).
-- **Custom Port**: Berjalan di port `5100` untuk menghindari konflik port.
+- **Leaflet.js Frontend**: Peta interaktif yang ringan dan responsif (OpenStreetMap).
+- **Isolasi Project**: Menggunakan Python Virtual Environment (`venv`) untuk menjaga dependensi tetap rapi.
+- **Custom Port**: Diatur berjalan di port `5100` untuk menghindari konflik port saat development lokal.
 
 ## 🛠️ Persyaratan Sistem
-- Python 3.x
+- Python 3.10+
 - Pip (Python Package Manager)
+- Git
 
-## 📥 Cara Instalasi
+## 📥 Cara Instalasi Lokal
 
 1. **Clone repositori ini**:
    ```bash
-   git clone <url-repo-anda>
-   cd webgis_project
+   git clone https://github.com/samsuarif63/GeoAI.git
+   cd GeoAI
    ```
 
 2. **Buat & Aktifkan Virtual Environment**:
@@ -32,28 +35,29 @@ Proyek WebGIS sederhana yang dibangun menggunakan **Flask (Python)** dan **Leafl
    pip install -r requirements.txt
    ```
 
-## 🎮 Cara Menjalankan
+## 🎮 Cara Menjalankan Lokal
 Pastikan virtual environment telah aktif, lalu jalankan:
 ```bash
 python app.py
 ```
 Akses di browser melalui: **[http://127.0.0.1:5100](http://127.0.0.1:5100)**
 
-## 🌐 Rencana Deployment (Gratis)
-Proyek ini siap di-deploy ke:
-- **Hosting**: Render.com atau Railway.app (Gunakan `gunicorn` sesuai yang ada di `requirements.txt`).
-- **Database**: Supabase (PostgreSQL + PostGIS) untuk penyimpanan data spasial skala besar.
+## 🌐 Deployment (Gratis)
+Proyek ini telah berhasil ditayangkan di:
+- **Hosting**: [PythonAnywhere](https://www.pythonanywhere.com/) (Gratis selamanya).
+- **Repository**: GitHub [samsuarif63/GeoAI](https://github.com/samsuarif63/GeoAI).
 
 ## 📂 Struktur Folder
 ```text
 webgis_project/
-├── app.py             # Server Flask & API
-├── requirements.txt   # Daftar Library
-├── venv/              # Virtual Environment (Jangan di-upload ke Git)
+├── app.py             # Server Flask & API (Makassar Center)
+├── requirements.txt   # Daftar Library (Flask, Gunicorn)
+├── venv/              # Virtual Environment (Di-ignore oleh git)
 ├── templates/         # File HTML/Frontend
-│   └── index.html     # Peta Leaflet
+│   └── index.html     # Peta Leaflet (Custom Center Makassar)
+├── .gitignore         # Daftar file/folder yang tidak di-upload ke Git
 └── README.md          # Dokumentasi Proyek
 ```
 
 ---
-*Dibuat dengan bantuan Antigravity AI.*
+*Dibuat oleh Samsu Arif dengan bantuan Antigravity AI.*
