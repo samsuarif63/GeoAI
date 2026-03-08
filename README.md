@@ -1,63 +1,68 @@
-# 🌏 My Free WebGIS - Makassar Landmark
+# 🌏 Makassar WebGIS - Premium Landmark Edition
 
-Proyek WebGIS sederhana yang dibangun menggunakan **Flask (Python)** dan **Leaflet.js**. Dirancang khusus untuk menampilkan lokasi bersejarah di Kota Makassar dan dapat berjalan di lingkungan hosting gratis dengan performa tinggi.
+Proyek WebGIS interaktif yang menampilkan lokasi bersejarah dan landmark ikonik di Kota Makassar. Dibangun dengan fokus pada estetika modern (**Premium Glassmorphism**) dan performa tinggi menggunakan **Flask** dan **Leaflet.js**.
 
 👉 **Live Demo**: [samsu.pythonanywhere.com](http://samsu.pythonanywhere.com)
 
-## 🚀 Fitur Utama
-- **Backend Flask**: API dinamis untuk melayani data geospasial (GeoJSON).
-- **Leaflet.js Frontend**: Peta interaktif yang ringan dan responsif (OpenStreetMap).
-- **Isolasi Project**: Menggunakan Python Virtual Environment (`venv`) untuk menjaga dependensi tetap rapi.
-- **Custom Port**: Diatur berjalan di port `5100` untuk menghindari konflik port saat development lokal.
+## 🚀 Fitur Unggulan
+- **💎 Premium UI/UX**: Antarmuka modern dengan efek *Glassmorphism*, tipografi *Outfit* dari Google Fonts, dan desain yang responsif.
+- **🗄️ Database SQLite**: Penyimpanan data lokasi yang persisten menggunakan **SQLAlchemy** (tidak lagi hardcoded).
+- **🗺️ Layer Switcher**: Kemudahan berpindah antara tampilan peta jalan (OpenStreetMap) dan citra satelit (Esri).
+- **🛰️ GeoJSON API**: Backend Flask menyediakan data geospasial secara dinamis untuk konsumsi frontend.
+- **⚡ Automated Deployment**: Script khusus untuk pembaruan cepat di server PythonAnywhere.
 
-## 🛠️ Persyaratan Sistem
-- Python 3.10+
-- Pip (Python Package Manager)
-- Git
+## 🛠️ Stack Teknologi
+- **Backend**: Python, Flask, Flask-SQLAlchemy, SQLite
+- **Frontend**: HTML5, Vanilla CSS (Glassmorphism), JavaScript, Leaflet.js
+- **Icons & Fonts**: Google Fonts (Outfit)
+- **Deployment**: Git, PythonAnywhere
 
 ## 📥 Cara Instalasi Lokal
 
-1. **Clone repositori ini**:
+1. **Clone repositori**:
    ```bash
    git clone https://github.com/samsuarif63/GeoAI.git
-   cd GeoAI
+   cd webgis_project
    ```
 
-2. **Buat & Aktifkan Virtual Environment**:
+2. **Setup Virtual Environment**:
    ```bash
-   # Di macOS/Linux
    python3 -m venv venv
    source venv/bin/activate
    ```
 
-3. **Instal Dependensi**:
+3. **Instal Library**:
    ```bash
    pip install -r requirements.txt
    ```
 
-## 🎮 Cara Menjalankan Lokal
-Pastikan virtual environment telah aktif, lalu jalankan:
+## 🎮 Cara Menjalankan
+Jalankan server Flask:
 ```bash
 python app.py
 ```
-Akses di browser melalui: **[http://127.0.0.1:5100](http://127.0.0.1:5100)**
+Akses di browser: **[http://127.0.0.1:5100](http://127.0.0.1:5100)**
 
-## 🌐 Deployment (Gratis)
-Proyek ini telah berhasil ditayangkan di:
-- **Hosting**: [PythonAnywhere](https://www.pythonanywhere.com/) (Gratis selamanya).
-- **Repository**: GitHub [samsuarif63/GeoAI](https://github.com/samsuarif63/GeoAI).
+## 🌐 Deployment (PythonAnywhere)
+Proyek ini dilengkapi dengan script `deploy_pa.sh` untuk me-refresh aplikasi di hosting secara otomatis:
+
+1. Masuk ke Bash Console PythonAnywhere.
+2. Masuk ke folder project, lalu jalankan:
+   ```bash
+   ./deploy_pa.sh
+   ```
 
 ## 📂 Struktur Folder
 ```text
 webgis_project/
-├── app.py             # Server Flask & API (Makassar Center)
-├── requirements.txt   # Daftar Library (Flask, Gunicorn)
-├── venv/              # Virtual Environment (Di-ignore oleh git)
-├── templates/         # File HTML/Frontend
-│   └── index.html     # Peta Leaflet (Custom Center Makassar)
-├── .gitignore         # Daftar file/folder yang tidak di-upload ke Git
+├── app.py             # Server Flask, Model Database, & API
+├── database.db        # Database SQLite (Auto-generated)
+├── requirements.txt   # Daftar dependensi (Flask, SQLAlchemy, dll)
+├── deploy_pa.sh       # Script otomasi deployment PythonAnywhere
+├── templates/
+│   └── index.html     # Frontend Peta (Premium UI & Leaflet)
 └── README.md          # Dokumentasi Proyek
 ```
 
 ---
-*Dibuat oleh Samsu Arif dengan bantuan Antigravity AI.*
+*Dibuat dengan ❤️ oleh Samsu Arif dengan dukungan Antigravity AI.*
