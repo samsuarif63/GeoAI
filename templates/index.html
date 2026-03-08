@@ -4,15 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebGIS - Jakarta Landmark</title>
+    <title>WebGIS - Makassar Landmark</title>
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <!-- Google Fonts: Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --primary-bg: rgba(255, 255, 255, 0.75);
+            --accent-color: #2c3e50;
+            --text-color: #34495e;
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+
         body {
             margin: 0;
             padding: 0;
-            font-family: sans-serif;
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
         }
 
         #map {
@@ -20,15 +31,64 @@
             width: 100%;
         }
 
+        /* Glassmorphism Panel */
         .info-panel {
             position: absolute;
-            top: 10px;
-            left: 50px;
+            top: 20px;
+            left: 20px;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            background: var(--primary-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: var(--shadow);
+            max-width: 280px;
+            transition: transform 0.3s ease;
+        }
+
+        .info-panel:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-panel h3 {
+            margin: 0 0 10px 0;
+            color: var(--accent-color);
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .info-panel p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .footer-tag {
+            margin-top: 15px !important;
+            font-size: 0.8rem !important;
+            opacity: 0.6;
+        }
+
+        /* Custom Popup Styling */
+        .leaflet-popup-content-wrapper {
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .popup-title {
+            color: #e67e22;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .popup-desc {
+            margin: 0;
+            color: #555;
+            font-size: 0.9rem;
         }
     </style>
 </head>
@@ -36,9 +96,9 @@
 <body>
 
     <div class="info-panel">
-        <h3>My Free WebGIS</h3>
-        <p>Aplikasi GIS sederhana berbasis Flask + Leaflet.</p>
-        <p><i>Data di-load secara dinamis dari API Flask.</i></p>
+        <h3>Makassar WebGIS</h3>
+        <p>Eksplorasi situs bersejarah dan landmark ikonik Kota Makassar secara interaktif.</p>
+        <p class="footer-tag"><i>Dikelola secara dinamis via Flask API</i></p>
     </div>
 
     <div id="map"></div>
@@ -49,45 +109,49 @@
 
     <script>
         // Definisikan Basemaps
-        var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            attribution: '© OpenStreetMap'
         });
 
         var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
         });
 
-        // Inisialisasi peta di pusat Makassar (Pantai Losari) dengan layer default OSM
+        // Inisialisasi peta berpusat di Makassar
         var map = L.map('map', {
             center: [-5.1441, 119.4082],
-            zoom: 13,
+            zoom: 14,
             layers: [osm]
         });
 
-        // Objek untuk kontrol layer
+        // Objek pemilih layer
         var baseMaps = {
-            "OpenStreetMap (Jalan)": osm,
+            "Peta Jalan (OSM)": osm,
             "Satelit (Esri)": satellite
         };
 
-        // Tambahkan kontrol layer ke peta
-        L.control.layers(baseMaps).addTo(map);
+        L.control.layers(baseMaps, null, { collapsed: false }).addTo(map);
 
-
-        // Fetch data dari API Flask
+        // Fetch data dari API Flask dengan marker styling
         fetch('/api/data')
-            .then(response => response.json())
+            .then(res => res.json())
             .then(data => {
                 L.geoJSON(data, {
                     onEachFeature: function (feature, layer) {
-                        if (feature.properties && feature.properties.name) {
-                            layer.bindPopup("<b>" + feature.properties.name + "</b><br>" + feature.properties.description);
+                        if (feature.properties) {
+                            var popupContent = `
+                                <div style="font-family: 'Outfit', sans-serif; min-width: 150px;">
+                                    <div class="popup-title">${feature.properties.name}</div>
+                                    <p class="popup-desc">${feature.properties.description}</p>
+                                </div>
+                            `;
+                            layer.bindPopup(popupContent);
                         }
                     }
                 }).addTo(map);
             })
-            .catch(error => console.error('Error fetching data:', error));
+            .catch(err => console.error('Error loading data:', err));
     </script>
 </body>
 
