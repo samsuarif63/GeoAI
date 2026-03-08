@@ -48,15 +48,32 @@
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <script>
-        // Inisialisasi peta di pusat Makassar (Pantai Losari)
-        var map = L.map('map').setView([-5.1441, 119.4082], 13);
-
-
-        // Menambahkan tile layer dari OpenStreetMap (Gratis)
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        // Definisikan Basemaps
+        var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+        });
+
+        var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        });
+
+        // Inisialisasi peta di pusat Makassar (Pantai Losari) dengan layer default OSM
+        var map = L.map('map', {
+            center: [-5.1441, 119.4082],
+            zoom: 13,
+            layers: [osm]
+        });
+
+        // Objek untuk kontrol layer
+        var baseMaps = {
+            "OpenStreetMap (Jalan)": osm,
+            "Satelit (Esri)": satellite
+        };
+
+        // Tambahkan kontrol layer ke peta
+        L.control.layers(baseMaps).addTo(map);
+
 
         // Fetch data dari API Flask
         fetch('/api/data')
